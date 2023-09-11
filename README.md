@@ -1,7 +1,7 @@
 # Run project
-git clone https://github.com/Phattararaphon2022/calpig.git
-flutter pub get
-flutter run
+- git clone https://github.com/Phattararaphon2022/calpig.git \n
+- flutter pub get
+- flutter run
 
 
 
