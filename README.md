@@ -1,6 +1,9 @@
-# calpig
+# Run project
+git clone https://github.com/Phattararaphon2022/calpig.git
+flutter pub get
+flutter run
 
-A new Flutter project.
+
 
 ## Getting Started
 
