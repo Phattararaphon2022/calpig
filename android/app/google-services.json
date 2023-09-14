@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "928343699517",
+    "project_id": "calpig-686ff",
+    "storage_bucket": "calpig-686ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928343699517:android:1e0eebbf8c3777ee21ba54",
+        "android_client_info": {
+          "package_name": "com.example.calpig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928343699517-qgor4mqp690mmh2me0q40s5jadet3bpp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.calpig",
+            "certificate_hash": "902eb3b55de5d7c51ee676626c08394e579d03eb"
+          }
+        },
+        {
+          "client_id": "928343699517-ovl44qesu25ealm52tr3so1bifj5qtaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGHpN4Z3urU9nE2hD8qFqU999Gp6zUsU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928343699517-ovl44qesu25ealm52tr3so1bifj5qtaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

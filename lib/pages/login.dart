@@ -1,8 +1,9 @@
-// ignore_for_file: non_constant_identifier_names, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, unused_local_variable, unnecessary_null_comparison, use_build_context_synchronously
 
 import 'package:calpig/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -41,10 +42,13 @@ class _LoginState extends State<Login> {
     return GestureDetector(
       onTap: () {
         print(text);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Home()),
-        );
+        if (text == "Google Login") {
+          SingINWithGoogle();
+        }
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const Home()),
+        // );
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -80,5 +84,28 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future<Null> SingINWithGoogle() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    GoogleSignInAccount? user = await _googleSignIn.signIn();
+    GoogleSignInAuthentication userAuth = await user!.authentication;
+    print(user);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()),
+    );
+    // await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
+    //     idToken: userAuth.idToken, accessToken: userAuth.accessToken));
+    // await Firebase.initializeApp().then((value) async {
+    //   await _googleSignIn.signIn().then((value) {
+    //     print("Login With gmail Success");
+    //   });
+    // });
   }
 }

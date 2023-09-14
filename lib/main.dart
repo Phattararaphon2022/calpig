@@ -1,5 +1,7 @@
+import 'package:calpig/pages/home.dart';
 import 'package:calpig/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,8 +34,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool status = false;
+  @override
+  initState() {
+    super.initState();
+    checkGoogleLogin();
+  }
+
+  Future<void> checkGoogleLogin() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    if (await googleSignIn.isSignedIn()) {
+      setState(() {
+        print("Google-------------------------------------------------------");
+        status = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Login();
+    return status ? const Home() : const Login();
   }
 }
