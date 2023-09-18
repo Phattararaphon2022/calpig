@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_prin, use_build_context_synchronously
+// ignore_for_file: avoid_prin, use_build_context_synchronously, prefer_const_constructors
 import 'package:calpig/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -14,12 +14,41 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GoogleSignInAccount? user;
+  bool status = false;
+  int quantity = 0;
   int caltotal = 10;
   List data = [];
-  List ttt = [
-    "aa",
-    "bb",
-    "cc",
+  List meat = [
+    {
+      'no': '1',
+      'name': 'หมูสามชั้น',
+      'description': 'หมูสามชั้น 3 ชิ้น 100 กรัม ให้พลังงาน 581 Kcal',
+      'image': 'assets/images/porkbelly.png'
+    },
+    {
+      'no': '2',
+      'name': 'เนื้อหมูสไลด์',
+      'description': 'เนื้อหมูสไลด์ 3 ชิ้น ให้พลังงาน 175 Kcal',
+      'image': 'assets/images/slicedpork.png'
+    },
+    {
+      'no': '3',
+      'name': 'เนื้อวัว',
+      'description': 'เนื้อวัว 100 กรัม ให้พลังงาน 134 Kcal',
+      'image': 'assets/images/beef.png'
+    },
+    {
+      'no': '4',
+      'name': 'เนื้อวัวสไลด์',
+      'description': 'เนื้อวัวสไลด์ 3 ชิ้น 100 กรัม ให้พลังงาน 154 Kcal',
+      'image': 'assets/images/beefslices.png'
+    },
+    {
+      'no': '5',
+      'name': 'เนื้อไก่',
+      'description': 'เนื้อไก่ 2 ชิ้น ให้พลังงาน 69 Kcal',
+      'image': 'assets/images/chickenmeat.png'
+    },
   ];
   @override
   initState() {
@@ -28,7 +57,6 @@ class _HomeState extends State<Home> {
   }
 
   Future<bool> getProfile() async {
-    print("kkkk");
     final GoogleSignIn googleSignIn = GoogleSignIn();
     if (await googleSignIn.isSignedIn()) {
       user = await googleSignIn.signInSilently();
@@ -40,8 +68,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double widths = MediaQuery.of(context).size.width;
-    double heights = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: FutureBuilder(
       future: getProfile(),
@@ -51,14 +79,14 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Image.asset(
                 'assets/images/backgroup.png',
-                width: widths,
-                height: heights,
+                width: width,
+                height: height,
                 fit: BoxFit.cover,
               ),
               Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: heights * 0.03, left: 10),
+                    padding: EdgeInsets.only(top: height * 0.03, left: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -96,7 +124,7 @@ class _HomeState extends State<Home> {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: heights * 0.01),
+                      padding: EdgeInsets.only(top: height * 0.01),
                       child: const Text("Calories",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24)),
@@ -108,43 +136,236 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold, fontSize: 24)),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: heights * 0.45),
+                    padding: EdgeInsets.only(top: height * 0.35),
                     child: Image.asset('assets/images/Asset_1.png',
                         height: 80, fit: BoxFit.fill),
                   ),
-                  TextButton(
-                      onPressed: () async {
-                        setState(() {
-                          data.add(GestureDetector(
-                            onTap: () {
-                              print("Test");
-                            },
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
+                  !status
+                      ? Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        status = !status;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: width * 0.3,
+                                      height: 40,
+                                      color: Colors.white,
+                                      child: const Center(
+                                          child: Text(
+                                        "เนื้อสัตว์",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        status = !status;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: width * 0.3,
+                                      height: 40,
+                                      color: Colors.white,
+                                      child: const Center(
+                                          child: Text(
+                                        "อาหารทะเล",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                                    ),
+                                  )
+                                ],
                               ),
-                              child: Text((data.length + 1).toString()),
                             ),
-                          ));
-                        });
-                      },
-                      child: const Text("Add")),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                    child: MasonryGridView.count(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return data[index];
-                      },
-                    ),
-                  ))
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        status = !status;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: width * 0.3,
+                                      height: 40,
+                                      color: Colors.white,
+                                      child: const Center(
+                                          child: Text(
+                                        "อาหารทรงเครื่อง",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        status = !status;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: width * 0.3,
+                                      height: 40,
+                                      color: Colors.white,
+                                      child: const Center(
+                                          child: Text(
+                                        "ผักสด",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Container(
+                                width: width * 0.8,
+                                height: 40,
+                                color: Colors.white,
+                                child: const Center(
+                                    child: Text(
+                                  "รายการอาหารที่เพิ่มลงในตะกร้า",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                )),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Text("รายการอาหาร ประเภทเนื้อสัตว์"),
+                            Padding(
+                              padding: EdgeInsets.only(top: 0),
+                              child: Container(
+                                height: height * 0.3,
+                                width: width * 0.95,
+                                child: ListView(
+                                    scrollDirection: Axis.vertical,
+                                    children: <Widget>[
+                                      for (var i in meat)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8),
+                                          child: Container(
+                                            width: width * 0.1,
+                                            // height: 10,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.white,
+                                            ),
+                                            child: Column(children: [
+                                              Row(
+                                                children: [
+                                                  Text("${i['no']}."),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8, top: 5),
+                                                    child: Image.asset(
+                                                      i['image'],
+                                                      width: width * 0.15,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      i['name'],
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 18),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              Text(
+                                                "รายละเอียด",
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                i['description'],
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                        Icons.remove),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        if (quantity > 0) {
+                                                          quantity--;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  Text(quantity.toString()),
+                                                  IconButton(
+                                                    icon: const Icon(Icons.add),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        quantity++;
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              OutlinedButton(
+                                                onPressed: () {},
+                                                child: Text(
+                                                  'เพิ่มลงในตะกร้า',
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                                style: OutlinedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  side: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.red),
+                                                ),
+                                              )
+                                            ]),
+                                          ),
+                                        ),
+                                    ]),
+                              ),
+                            ),
+                          ],
+                        ),
                 ],
               ),
             ],
