@@ -15,39 +15,136 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   GoogleSignInAccount? user;
   bool status = false;
+  String type = "";
   int quantity = 0;
   int caltotal = 10;
-  List data = [];
-  List meat = [
+  List data = [
     {
       'no': '1',
       'name': 'หมูสามชั้น',
       'description': 'หมูสามชั้น 3 ชิ้น 100 กรัม ให้พลังงาน 581 Kcal',
-      'image': 'assets/images/porkbelly.png'
+      'image': 'assets/images/porkbelly.png',
+      'num': 0
     },
     {
       'no': '2',
       'name': 'เนื้อหมูสไลด์',
       'description': 'เนื้อหมูสไลด์ 3 ชิ้น ให้พลังงาน 175 Kcal',
-      'image': 'assets/images/slicedpork.png'
+      'image': 'assets/images/slicedpork.png',
+      'num': 0
     },
     {
       'no': '3',
       'name': 'เนื้อวัว',
       'description': 'เนื้อวัว 100 กรัม ให้พลังงาน 134 Kcal',
-      'image': 'assets/images/beef.png'
+      'image': 'assets/images/beef.png',
+      'num': 0
     },
     {
       'no': '4',
       'name': 'เนื้อวัวสไลด์',
       'description': 'เนื้อวัวสไลด์ 3 ชิ้น 100 กรัม ให้พลังงาน 154 Kcal',
-      'image': 'assets/images/beefslices.png'
+      'image': 'assets/images/beefslices.png',
+      'num': 0
     },
     {
       'no': '5',
       'name': 'เนื้อไก่',
       'description': 'เนื้อไก่ 2 ชิ้น ให้พลังงาน 69 Kcal',
-      'image': 'assets/images/chickenmeat.png'
+      'image': 'assets/images/chickenmeat.png',
+      'num': 0
+    },
+  ];
+  List meat = [
+    {
+      'no': '1',
+      'name': 'หมูสามชั้น',
+      'description': 'หมูสามชั้น 3 ชิ้น 100 กรัม ให้พลังงาน 581 Kcal',
+      'image': 'assets/images/porkbelly.png',
+      'num': 0
+    },
+    {
+      'no': '2',
+      'name': 'เนื้อหมูสไลด์',
+      'description': 'เนื้อหมูสไลด์ 3 ชิ้น ให้พลังงาน 175 Kcal',
+      'image': 'assets/images/slicedpork.png',
+      'num': 0
+    },
+    {
+      'no': '3',
+      'name': 'เนื้อวัว',
+      'description': 'เนื้อวัว 100 กรัม ให้พลังงาน 134 Kcal',
+      'image': 'assets/images/beef.png',
+      'num': 0
+    },
+    {
+      'no': '4',
+      'name': 'เนื้อวัวสไลด์',
+      'description': 'เนื้อวัวสไลด์ 3 ชิ้น 100 กรัม ให้พลังงาน 154 Kcal',
+      'image': 'assets/images/beefslices.png',
+      'num': 0
+    },
+    {
+      'no': '5',
+      'name': 'เนื้อไก่',
+      'description': 'เนื้อไก่ 2 ชิ้น ให้พลังงาน 69 Kcal',
+      'image': 'assets/images/chickenmeat.png',
+      'num': 0
+    },
+  ];
+  List seafood = [
+    {
+      'no': '1',
+      'name': 'กุ้ง',
+      'description': 'กุ้ง 3 ชิ้น ให้พลังงาน 55 Kcal',
+      'image': 'assets/images/shrimp.png',
+      'num': 0
+    },
+  ];
+  List food = [
+    {
+      'no': '1',
+      'name': 'เต้าหู้ชีส',
+      'description': 'เต้าหู้ชีส 100 กรัม ให้พลังงาน 280 Kcal',
+      'image': 'assets/images/cheeseTofu.png',
+      'num': 0
+    }
+  ];
+  List vegetable = [
+    {
+      'no': '1',
+      'name': 'แครอท',
+      'description': 'แครอท 100 กรัม ให้พลังงาน 46 Kcal',
+      'image': 'assets/images/carrot.png',
+      'num': 0
+    },
+    {
+      'no': '2',
+      'name': 'ผักกวางตุ้ง',
+      'description': 'ผักกวางตุ้ง 100 กรัม ให้พลังงาน 13 Kcal',
+      'image': 'assets/images/bokchoy.png',
+      'num': 0
+    },
+    {
+      'no': '3',
+      'name': 'เห็ดเข็มทอง',
+      'description': 'เห็ดเข็มทอง 100 กรัม ให้พลังงาน 37 Kcal',
+      'image': 'assets/images/goldenneedlemushroom.png',
+      'num': 0
+    },
+    {
+      'no': '4',
+      'name': 'ผักกาดขาว',
+      'description': 'ผักกาดขาว 100 กรัม ให้พลังงาน 12 Kcal',
+      'image': 'assets/images/chinesecabbage.png',
+      'num': 0
+    },
+    {
+      'no': '5',
+      'name': 'ข้าวโพด ',
+      'description': 'ข้าวโพด 100 กรัม ให้พลังงาน 33 Kcal',
+      'image': 'assets/images/babycorn.png',
+      'num': 0
     },
   ];
   @override
@@ -153,6 +250,8 @@ class _HomeState extends State<Home> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        data = meat;
+                                        type = "เนื้อสัตว์";
                                         status = !status;
                                       });
                                     },
@@ -172,6 +271,8 @@ class _HomeState extends State<Home> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        data = seafood;
+                                        type = "อาหารทะเล";
                                         status = !status;
                                       });
                                     },
@@ -201,6 +302,8 @@ class _HomeState extends State<Home> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        data = food;
+                                        type = "อาหารทรงเครื่อง";
                                         status = !status;
                                       });
                                     },
@@ -220,6 +323,8 @@ class _HomeState extends State<Home> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        data = vegetable;
+                                        type = "ผักสด";
                                         status = !status;
                                       });
                                     },
@@ -258,16 +363,36 @@ class _HomeState extends State<Home> {
                         )
                       : Column(
                           children: [
-                            Text("รายการอาหาร ประเภทเนื้อสัตว์"),
                             Padding(
                               padding: EdgeInsets.only(top: 0),
                               child: Container(
-                                height: height * 0.3,
+                                height: height * 0.33,
                                 width: width * 0.95,
                                 child: ListView(
                                     scrollDirection: Axis.vertical,
                                     children: <Widget>[
-                                      for (var i in meat)
+                                      Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Colors.white,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.arrow_back),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    // quantity++;
+                                                    status = !status;
+                                                  });
+                                                },
+                                              ),
+                                              Text("รายการอาหาร ประเภท${type}"),
+                                            ],
+                                          )),
+                                      for (var i in data)
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 8),
@@ -324,25 +449,30 @@ class _HomeState extends State<Home> {
                                                         Icons.remove),
                                                     onPressed: () {
                                                       setState(() {
-                                                        if (quantity > 0) {
-                                                          quantity--;
+                                                        if (i['num'] > 0) {
+                                                          i['num']--;
                                                         }
                                                       });
                                                     },
                                                   ),
-                                                  Text(quantity.toString()),
+                                                  Text(i['num'].toString()),
                                                   IconButton(
                                                     icon: const Icon(Icons.add),
                                                     onPressed: () {
                                                       setState(() {
-                                                        quantity++;
+                                                        // quantity++;
+                                                        i['num']++;
                                                       });
                                                     },
                                                   ),
                                                 ],
                                               ),
                                               OutlinedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  setState(() {
+                                                    i['num'] = 0;
+                                                  });
+                                                },
                                                 child: Text(
                                                   'เพิ่มลงในตะกร้า',
                                                   style: TextStyle(
