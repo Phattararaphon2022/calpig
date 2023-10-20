@@ -19,6 +19,7 @@ class _HomeState extends State<Home> {
   int quantity = 0;
   int caltotal = 0;
   List data = [];
+  var select = {};
   List dataAdd = [];
   List meat = [
     {
@@ -214,117 +215,66 @@ class _HomeState extends State<Home> {
                     child: Image.asset('assets/images/Asset_1.png',
                         height: 80, fit: BoxFit.fill),
                   ),
-                  !status
-                      ? Column(
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
+                            !status
+                                ? PopupMenuButton<int>(
+                                    child: Icon(
+                                      Icons.list,
+                                      color: Colors.white,
+                                    ),
+                                    itemBuilder: (context) {
+                                      return [
+                                        PopupMenuItem<int>(
+                                            value: 1,
+                                            child: Text("เนื้อสัตว์")),
+                                        PopupMenuItem<int>(
+                                            value: 2, child: Text("อาหารทะเล")),
+                                        PopupMenuItem<int>(
+                                            value: 3,
+                                            child: Text("อาหารทรงเครื่อง")),
+                                        PopupMenuItem<int>(
+                                            value: 4, child: Text("ผักสด")),
+                                      ];
+                                    },
+                                    onSelected: (value) {
+                                      print(value);
                                       setState(() {
-                                        data = meat;
-                                        type = "เนื้อสัตว์";
-                                        status = !status;
+                                        if (value == 1) {
+                                          data = meat;
+                                        }
+                                        if (value == 2) {
+                                          data = seafood;
+                                        }
+                                        if (value == 3) {
+                                          data = food;
+                                        }
+                                        if (value == 4) {
+                                          data = vegetable;
+                                        }
                                       });
                                     },
-                                    child: Container(
-                                      width: width * 0.3,
-                                      height: 40,
-                                      color: Colors.white,
-                                      child: const Center(
-                                          child: Text(
-                                        "เนื้อสัตว์",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        data = seafood;
-                                        type = "อาหารทะเล";
-                                        status = !status;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: width * 0.3,
-                                      height: 40,
-                                      color: Colors.white,
-                                      child: const Center(
-                                          child: Text(
-                                        "อาหารทะเล",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                                    ),
                                   )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
+                                : IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
                                       setState(() {
-                                        data = food;
-                                        type = "อาหารทรงเครื่อง";
-                                        status = !status;
+                                        status = false;
+                                        select = {};
                                       });
                                     },
-                                    child: Container(
-                                      width: width * 0.3,
-                                      height: 40,
-                                      color: Colors.white,
-                                      child: const Center(
-                                          child: Text(
-                                        "อาหารทรงเครื่อง",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                                    ),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        data = vegetable;
-                                        type = "ผักสด";
-                                        status = !status;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: width * 0.3,
-                                      height: 40,
-                                      color: Colors.white,
-                                      child: const Center(
-                                          child: Text(
-                                        "ผักสด",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: GestureDetector(
-                                onTap: () {
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
                                   showModalBottomSheet<void>(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -410,170 +360,166 @@ class _HomeState extends State<Home> {
                                       );
                                     },
                                   );
-                                },
-                                child: Container(
-                                  width: width * 0.8,
-                                  height: 40,
-                                  color: Colors.white,
-                                  child: const Center(
-                                      child: Text(
-                                    "รายการอาหารที่เพิ่มลงในตะกร้า",
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                    ),
-                                  )),
-                                ),
+                                });
+                              },
+                              child: Image.asset(
+                                'assets/images/icon_1.png',
+                                width: 18,
                               ),
-                            ),
+                            )
                           ],
-                        )
-                      : Column(
+                        ),
+                      )
+                    ],
+                  ),
+                  !status
+                      ? Column(
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 0),
                               child: Container(
-                                height: height * 0.33,
+                                height: height * 0.295,
                                 width: width * 0.95,
                                 child: ListView(
                                     scrollDirection: Axis.vertical,
                                     children: <Widget>[
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.white,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(
-                                                    Icons.arrow_back),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    // quantity++;
-                                                    status = !status;
-                                                  });
-                                                },
+                                      Wrap(
+                                        spacing:
+                                            8.0, // gap between adjacent chips
+                                        runSpacing: 8.0, // gap between lines
+                                        children: <Widget>[
+                                          for (var i in data)
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  print(i);
+                                                  status = true;
+                                                  select = i;
+                                                  select['num'] = 0;
+                                                });
+                                              },
+                                              child: Container(
+                                                width: width * 0.3,
+                                                height: 100,
+                                                color: Colors.white,
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Image.asset(
+                                                        i['image'],
+                                                        width: width * 0.2,
+                                                      ),
+                                                      Text(
+                                                        i['name'],
+                                                        style: TextStyle(
+                                                            // color: Colors.red,
+                                                            fontSize: 14),
+                                                      ),
+                                                    ]),
                                               ),
-                                              Text("รายการอาหาร ประเภท${type}"),
-                                            ],
-                                          )),
-                                      for (var i in data)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8),
-                                          child: Container(
-                                            width: width * 0.1,
-                                            // height: 10,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.white,
-                                            ),
-                                            child: Column(children: [
-                                              Row(
-                                                children: [
-                                                  Text("${i['no']}."),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8, top: 5),
-                                                    child: Image.asset(
-                                                      i['image'],
-                                                      width: width * 0.15,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10),
-                                                    child: Text(
-                                                      i['name'],
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontSize: 18),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              Text(
-                                                "รายละเอียด",
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 16),
-                                              ),
-                                              Text(
-                                                i['description'],
-                                                style: TextStyle(fontSize: 14),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  IconButton(
-                                                    icon: const Icon(
-                                                        Icons.remove),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        if (i['num'] > 0) {
-                                                          i['num']--;
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text(i['num'].toString()),
-                                                  IconButton(
-                                                    icon: const Icon(Icons.add),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        // quantity++;
-                                                        i['num']++;
-                                                      });
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                              OutlinedButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    dataAdd.add({
-                                                      'no': dataAdd.length + 1,
-                                                      'name': i['name'],
-                                                      'description':
-                                                          i['description'],
-                                                      'image': i['image'],
-                                                      'cal': i['cal'],
-                                                      'num': i['num'],
-                                                    });
-                                                    int cal =
-                                                        i['cal'] * i['num'];
-                                                    caltotal += cal;
-                                                    print(i['cal'] * i['num']);
-                                                    i['num'] = 0;
-                                                  });
-                                                },
-                                                child: Text(
-                                                  'เพิ่มลงในตะกร้า',
-                                                  style: TextStyle(
-                                                      color: Colors.red),
-                                                ),
-                                                style: OutlinedButton.styleFrom(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
-                                                  side: BorderSide(
-                                                      width: 1,
-                                                      color: Colors.red),
-                                                ),
-                                              )
-                                            ]),
-                                          ),
-                                        ),
+                                            )
+                                        ],
+                                      )
                                     ]),
                               ),
                             ),
                           ],
+                        )
+                      : Container(
+                          width: width * 0.9,
+                          // height: 10,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Column(children: [
+                            Row(
+                              children: [
+                                // Text("${select['no']}."),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8, top: 5),
+                                  child: Image.asset(
+                                    select['image'],
+                                    width: width * 0.15,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    select['name'],
+                                    style: TextStyle(
+                                        color: Colors.red, fontSize: 18),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Text(
+                              "รายละเอียด",
+                              style: TextStyle(color: Colors.red, fontSize: 16),
+                            ),
+                            Text(
+                              select['description'],
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (select['num'] > 0) {
+                                        select['num']--;
+                                      }
+                                    });
+                                  },
+                                ),
+                                Text(select['num'].toString()),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: () {
+                                    setState(() {
+                                      // quantity++;
+                                      select['num']++;
+                                    });
+                                  },
+                                ),
+                                Text("= "),
+                                Text((select['num'] * select['cal']).toString())
+                              ],
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                setState(() {
+                                  dataAdd.add({
+                                    'no': dataAdd.length + 1,
+                                    'name': select['name'],
+                                    'description': select['description'],
+                                    'image': select['image'],
+                                    'cal': select['cal'],
+                                    'num': select['num'],
+                                  });
+                                  int cal = select['cal'] * select['num'];
+                                  caltotal += cal;
+                                  print(select['cal'] * select['num']);
+                                  select['num'] = 0;
+                                });
+                              },
+                              child: Text(
+                                'เพิ่มลงในตะกร้า',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                side: BorderSide(width: 1, color: Colors.red),
+                              ),
+                            )
+                          ]),
                         ),
                 ],
               ),
