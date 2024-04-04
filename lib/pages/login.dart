@@ -28,8 +28,8 @@ class _LoginState extends State<Login> {
         ),
         Column(
           children: [
-            ButtonAction(heights * 0.65, FontAwesomeIcons.facebook,
-                Colors.blue[600], "Facebook Login"),
+            // ButtonAction(heights * 0.65, FontAwesomeIcons.facebook,
+            //     Colors.blue[600], "Facebook Login"),
             ButtonAction(20.0, FontAwesomeIcons.googlePlus, Colors.red[600],
                 "Google Login"),
           ],
